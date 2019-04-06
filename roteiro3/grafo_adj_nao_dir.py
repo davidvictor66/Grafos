@@ -257,8 +257,8 @@ class Grafo:
         while zerou==False:
             for a in range(len(aresta)):
                 for v in range(len(aresta)):
-                    if vertice[a]==vez: #verifica linha
-                        if aresta[a][v]!='-' and aresta[a][v]!=0:
+                    if vertice[a]==vez: 
+                        if aresta[a][v]!='-' and aresta[a][v]!=0: #verifica linha
                             if self.grau(vertice[v])==1:
                                 cone=0
                                 for j in range(len(aresta)):
