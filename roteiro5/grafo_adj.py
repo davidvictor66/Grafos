@@ -278,20 +278,6 @@ class Grafo:
                 del caminho[a]
         return caminho
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def __str__(self):
         '''
         Fornece uma representação do tipo String do grafo.
