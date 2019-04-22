@@ -166,7 +166,7 @@ class Grafo:
             fechado['{}'.format(vertices[i])]=0
         peso['{}'.format(inicial)] = 0
 
-        if posivel[vertices.index(inicial)][vertices.index(final)]==1: #verifica se o caminho é possivel
+        if posivel[vertices.index(inicial)][vertices.index(final)]==1: #verifica se o caminho é possível
             while terminou==False:
                 for i in range(len(vertices)):
                     if vertices[i] == vez:
@@ -207,7 +207,7 @@ class Grafo:
         else:
             return "Não é possível chegar"
 
-    def drone(self,ponto,recargas,cargaM,final): #essa função recebe como parãmetro um dos pontos de recarga e retorna o menor caminho possivel ate o final
+    def drone(self,ponto,recargas,cargaM,final): #essa função recebe como parâmetro um dos pontos de recarga e retorna o menor caminho possível até o final
         caminho=self.dijkstra(ponto,final)
         tamanho = []
         vetices = []
@@ -219,7 +219,7 @@ class Grafo:
             return caminho[1],[ponto,final]
         else:
             for a in range(len(recargas)):
-                if recargas[a]!=ponto: #verifica se existe algum ponto que chegue ate o final
+                if recargas[a]!=ponto: #verifica se existe algum ponto que chegue até o final
                     if (self.dijkstra(recargas[a], final) != "Não é possível chegar" and self.dijkstra(ponto,recargas[a])!= "Não é possível chegar"):
                         distancias_final+=[self.dijkstra(recargas[a],final)[1]]
                         distancias_inicial+=[self.dijkstra(ponto,recargas[a])[1]]
@@ -237,7 +237,7 @@ class Grafo:
                             while True:
                                 if vetices[tamanho.index(min(tamanho))][-1]==final: #se for o caminho mais curto
                                     return min(tamanho), vetices[tamanho.index(min(tamanho))]
-                                else: #caso o caminho mais curto não chegue ate o final apague
+                                else: #apaga caso o caminho mais curto não chegue até o final 
                                     del vetices[tamanho.index(min(tamanho))]
                                     del tamanho[tamanho.index(min(tamanho))]
                     return min(tamanho), vetices[tamanho.index(min(tamanho))]
@@ -255,9 +255,9 @@ class Grafo:
 
         for i in range(len(recarga)):
             peso1 = self.dijkstra(inicial, recarga[i])[1]
-            if peso1 <= cargaI: #se for possivel chegar ate este ponto
-                peso+=[self.drone(recarga[i],recarga,cargaM,final)[0]+peso1] #guarda a distancia desse ponto
-                trajeto+=[self.drone(recarga[i],recarga,cargaM,final)[1]] #guarda os pontos de recarga que vai usar de ate o final
+            if peso1 <= cargaI: #se for possível chegar até este ponto
+                peso+=[self.drone(recarga[i],recarga,cargaM,final)[0]+peso1] #guarda a distância desse ponto
+                trajeto+=[self.drone(recarga[i],recarga,cargaM,final)[1]] #guarda os pontos de recarga que vai usar de até o final
                 prime+=[recarga[i]] #guarda o primeiro ponto de recarga desse caminho
 
         if len(trajeto)==0:
@@ -267,7 +267,7 @@ class Grafo:
                 break
             elif len(trajeto)-1==i:
                 return "Não é possível chegar"
-        for i in range(len(trajeto)): #adiciona o primeiro ponto de recarga no trajeto se necessario
+        for i in range(len(trajeto)): #adiciona o primeiro ponto de recarga no trajeto se necessário
             if trajeto[i][0]==prime[i]:
                 continue
             trajeto[i].insert(0, prime[i])
