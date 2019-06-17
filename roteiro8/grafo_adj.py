@@ -154,47 +154,47 @@ class Grafo:
         vertices=self.N
         list_ordem=[]
         for i in range(len(vertices)):
-            for a in range(len(vertices)):
-                if aresta[a][i]>0:
+            for a in range(len(vertices)): #percorre a matriz procurando um vertice fonte
+                if aresta[a][i]>0: #caso tenha alguma aresta chegando nesse vertice pula pro proximo
                     break
-                elif a==len(vertices)-1:
-                    list_ordem+=[vertices[i]]
-                    for v in range(len(vertices)):
+                elif a==len(vertices)-1: #caso tenha terminado de analisar e não achou nenhuma aresta é vertice fonte
+                    list_ordem+=[vertices[i]] #adiciona na lista
+                    for v in range(len(vertices)): #exclui as arestas que partem desse vertice
                          if aresta[i][v]>0:
                             aresta[i][v]=0
         return list_ordem
 
     def recursao_dfs(self,v,vertices,aresta):
         lista=[]
-        i=vertices.index(v)
-        for a in range(len(vertices)):
-            if aresta[i][a]>0:
-                lista+=self.recursao_dfs(vertices[a],vertices,aresta)
-                for j in range(len(vertices)):
+        i=vertices.index(v) #guarda a posição do vertice pra não precisar fazer dois for
+        for a in range(len(vertices)): #percore buscando uma aresta que parte nesse vertice
+            if aresta[i][a]>0: #se achar envia de novo até achar um vertice sem arestas partindo dele (vertice sem filho)
+                lista+=self.recursao_dfs(vertices[a],vertices,aresta) #adiciona na lista
+                for j in range(len(vertices)): #exclui todas as outras arestas que chegam nesse vertice, se não é adicionado de novo depois
                     if aresta[j][a]>0:
                         aresta[j][a]=0
-            if a==len(vertices)-1:
+            if a==len(vertices)-1: # caso seja um vertice sem filho adiciona na lista e retorna
                 lista += [vertices[i]]
                 return lista
     def ordenacao_dfs(self):
-        aresta = deepcopy(self.M)
-        aresta2=self.M
+        aresta = deepcopy(self.M) #faz uma cópia do grafo porque vai modifica-lo
+        aresta2=self.M #guarda o grafo original
         vertices = self.N
         list_dfs=[]
         for i in range(len(vertices)):
-            for a in range(len(vertices)):
-                if aresta2[a][i]>0:
+            for a in range(len(vertices)):#procura um vertice fonte
+                if aresta2[a][i]>0: #se não for pula pro proximo
                     break
-                elif a==len(vertices)-1:
-                    for v in range(len(vertices)):
-                        if aresta[i][v] > 0:
-                            list_dfs+=self.recursao_dfs(vertices[v],vertices,aresta)
-                            for j in range(len(vertices)):
+                elif a==len(vertices)-1: #caso tenha terminado é vertice fonte
+                    for v in range(len(vertices)):# procura uma aresta que parte dele
+                        if aresta[i][v] > 0: 
+                            list_dfs+=self.recursao_dfs(vertices[v],vertices,aresta) #envia o vertice ligado a ele para fazer a busca e adiciona na lista
+                            for j in range(len(vertices)): #remove todas as outras arestas que chegam nesse outro vertice, se não ele é adicionado de novo depois
                                 if aresta[j][v] > 0:
                                     aresta[j][v] = 0
-                        if v==len(vertices)-1:
+                        if v==len(vertices)-1: #se terminou de analisar todas as arestas adiciona esse vertice na lista
                             list_dfs += [vertices[i]]
-        list_dfs= list_dfs[::-1]
+        list_dfs= list_dfs[::-1] #inverte a lista
         return list_dfs
 
 
